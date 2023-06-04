@@ -1,34 +1,50 @@
 from concurrent.futures import as_completed
 from requests_futures.sessions import FuturesSession
 from threading import Thread
-url = 'https://API/RequestURL'
-        
+url = 'https://WEBURL/Request'
+check = False
+threadCounter = 0
+maxThreads = 50
+threadsCreated = {}
 
-def getRequests():   
+
+
+def getRequests():
     with FuturesSession() as webSession:
-        
-        while True:    
-            futures = [webSession.get(url)  for _ in range(50)]
-            for future in as_completed(futures):
-                response = future.result()
-                if str(response) == "<Response [429]>":
-                    print("rate limited")
-        
+        #Update to Post/Get as necessary
+        futures = [webSession.post(url)  for _ in range(500)]
+        while True:
+            try:
+                for future in as_completed(futures):
+                    response = future.result()
+                    #print(str(response) + "\n")
+                    if str(response) == "<Response [200]>":
+                        print("up")
+                        getRequests()
+            except:
+                pass
+
+
+def main():
+    global threadCounter, maxThreads,threadsCreated
     
+    while threadCounter <= maxThreads:
+        key = threadCounter
+        value = Thread(target=getRequests)
+        
+        threadsCreated[str(key)] = key
+        threadsCreated[str(key)] = Thread(target=getRequests)
+        threadCounter += 1
+        
+    for key,value in threadsCreated.items():
+        key = value.start()
+        
+    for key,value in threadsCreated.items():
+        key = value.join()
+    
+        
+        
+main()
 
-t1,t2,t3,t4,t5 = Thread(target=getRequests),Thread(target=getRequests),Thread(target=getRequests),Thread(target=getRequests),Thread(target=getRequests)
-
-
-t1.start()
-t2.start()
-t3.start()
-t4.start()
-t5.start()
-
-t1.join()
-t2.join()
-t3.join()
-t4.join()
-t5.join()
 
 
