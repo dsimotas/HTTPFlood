@@ -3,9 +3,7 @@ from requests_futures.sessions import FuturesSession
 from threading import Thread
 url = 'https://WEBURL/Request'
 check = False
-threadCounter = 0
-maxThreads = 50
-threadsCreated = {}
+
 
 
 
@@ -26,7 +24,9 @@ def getRequests():
 
 
 def main():
-    global threadCounter, maxThreads,threadsCreated
+    threadCounter = 0
+    maxThreads = 50
+    threadsCreated = {}  
     
     while threadCounter <= maxThreads:
         key = threadCounter
