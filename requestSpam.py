@@ -2,7 +2,6 @@ from concurrent.futures import as_completed
 from requests_futures.sessions import FuturesSession
 from threading import Thread
 url = 'https://WEBURL/Request'
-check = False
 maxThreads = 50
 
 
