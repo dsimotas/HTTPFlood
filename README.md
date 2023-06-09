@@ -5,7 +5,7 @@ This simple script will allow you to quickly spam api/http requests and effectiv
 
 To utilize the script effectively, find a target site and using the network console, locate a request which is being called. Include the request link in the url variable.
 
-Written for Python 3.7
+Written for Python 3.11
 
 
 
