@@ -17,10 +17,11 @@ def getRequests():
                     response = future.result()
                     #print(str(response) + "\n")
                     if str(response) == "<Response [200]>":
-                        print("up")
+                        #print("Back up")
                         getRequests()
             except:
-                pass
+                getRequests()
+                continue
 
 
 def main():
